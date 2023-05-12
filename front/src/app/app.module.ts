@@ -14,9 +14,10 @@ import { SubjectComponent } from './components/subject/subject.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { PostFormComponent } from './components/post-form/post-form.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { NavbarComponent } from './components/shared/navbar/navbar.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, RegistrationComponent, LoginComponent, PostsComponent, PostComponent, SubjectsComponent, SubjectComponent, PostDetailComponent, PostFormComponent, UserProfileComponent],
+  declarations: [AppComponent, HomeComponent, RegistrationComponent, LoginComponent, PostsComponent, PostComponent, SubjectsComponent, SubjectComponent, PostDetailComponent, PostFormComponent, UserProfileComponent, NavbarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
