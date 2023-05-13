@@ -1,8 +1,6 @@
 package com.openclassrooms.mddapi.controller.subject;
 
-import com.openclassrooms.mddapi.controller.post.PostController;
 import com.openclassrooms.mddapi.exception.NotFoundException;
-import com.openclassrooms.mddapi.model.Post;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
