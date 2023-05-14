@@ -17,13 +17,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
+@RequestMapping("/api/posts")
 public class PostController {
     @Autowired
     private PostService postService;
     @Autowired
     private PostModelAssembler assembler;
 
-    @GetMapping("/posts")
+    @GetMapping()
     public CollectionModel<EntityModel<Post>> getPosts(){
         List<EntityModel<Post>> posts =  this.postService.getPosts().stream()
                 .map(post -> assembler.toModel(post))
@@ -32,24 +33,24 @@ public class PostController {
         return CollectionModel.of(posts, linkTo(methodOn(PostController.class).getPosts()).withSelfRel());
     }
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public EntityModel<Post> getPostById(@PathVariable Long id) {
         Post employee = this.postService.getPostById(id).orElseThrow(() -> new NotFoundException(id));
         return assembler.toModel(employee);
     }
 
-    @PostMapping("/posts")
+    @PostMapping()
     public ResponseEntity<EntityModel<Post>> addPost(@RequestBody Post newPost){
         EntityModel<Post> entityModel = assembler.toModel(this.postService.addPost(newPost));
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
 
-    @PutMapping("/posts/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<EntityModel<Post>> updateEmployee(@RequestBody Post newPost, @PathVariable Long id){
         EntityModel<Post> entityModel = assembler.toModel(this.postService.replacePostById(newPost,id));
         return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
     }
-    @DeleteMapping("/posts/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deletePost(@PathVariable Long id){
         this.postService.deletePostById(id);
         return ResponseEntity.noContent().build();
