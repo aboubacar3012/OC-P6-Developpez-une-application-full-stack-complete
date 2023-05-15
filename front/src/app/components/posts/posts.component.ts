@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {map, Observable, Subscription} from "rxjs";
 import {PostResponse} from "../../interfaces/Post";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
