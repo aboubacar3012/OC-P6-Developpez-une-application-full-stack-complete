@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
-import {PostResponse} from "../interfaces/PostResponse";
+import {Post, PostResponse} from "../interfaces/Post";
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,9 @@ export class PostService {
 
   public getPosts():Observable<PostResponse>{
     return this.httpClient.get<PostResponse>(this.pathService)
+  }
+
+  public getPostById(id: number): Observable<Post>{
+    return this.httpClient.get<Post>(`${this.pathService}/${id}`)
   }
 }
