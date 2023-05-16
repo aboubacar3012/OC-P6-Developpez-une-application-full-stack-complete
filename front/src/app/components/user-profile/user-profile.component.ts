@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  public updateUserForm!: FormGroup;
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
+    this.updateUserForm = this.formBuilder.group({
+      username: [null, Validators.required],
+      password: [null, Validators.required]
+    })
+  }
+
+  onSubmitForm(){
+    console.log(this.updateUserForm.value);
   }
 
 }
