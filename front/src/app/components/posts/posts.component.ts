@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {map, Observable, Subscription} from "rxjs";
-import {PostResponse} from "../../interfaces/PostResponse";
+import {PostResponse} from "../../interfaces/Post";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
 import {UserResponse} from "../../interfaces/UserResponse";
@@ -12,15 +11,14 @@ import {UserResponse} from "../../interfaces/UserResponse";
 })
 export class PostsComponent implements OnInit {
 
-  public postResponse: PostResponse | undefined;
-  public userResponse: UserResponse | undefined;
+  public postResponse!: PostResponse;
+  public userResponse!: UserResponse;
 
   constructor(private postService: PostService, private userService: UserService) {
   }
 
   ngOnInit(): void {
     this.getPosts()
-
   }
 
   getPosts(): void {
