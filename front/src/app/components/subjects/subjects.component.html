@@ -1,62 +1,26 @@
 <section class="bg-gray-50 dark:bg-gray-900 m-5">
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
-    <div>
+  <div *ngIf="subjectResponse; else loading" class="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div *ngFor="let subject of subjectResponse._embedded.subjectList">
       <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Titre du theme</h2>
+          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {{subject.name}}
+          </h2>
         </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-          acquisitions of 2021 so far, in reverse chronological order.
+        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+          {{subject.description}}
         </p>
         <a href="#"
-           class="inline-flex items-center px-10 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+           class="flex items-center justify-center px-10 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
           S'abonner
         </a>
       </div>
     </div>
-    <div>
-      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Titre du theme</h2>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-          acquisitions of 2021 so far, in reverse chronological order.
-        </p>
-        <a href="#"
-           class="inline-flex items-center px-10 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          S'abonner
-        </a>
-      </div>
-    </div>
-    <div>
-      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Titre du theme</h2>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-          acquisitions of 2021 so far, in reverse chronological order.
-        </p>
-        <a href="#"
-           class="inline-flex items-center px-10 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          S'abonner
-        </a>
-      </div>
-    </div>
-    <div>
-      <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-        <a href="#">
-          <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Titre du theme</h2>
-        </a>
-        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-          acquisitions of 2021 so far, in reverse chronological order.
-        </p>
-        <a href="#"
-           class="inline-flex items-center px-10 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          S'abonner
-        </a>
-      </div>
-    </div>
+
   </div>
+  <ng-template #loading>
+    Loading posts...
+  </ng-template>
 
 </section>

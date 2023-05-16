@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {SubjectResponse} from "../../interfaces/subject";
+import {SubjectService} from "../../services/subject.service";
 
 @Component({
   selector: 'app-subjects',
@@ -6,10 +8,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subjects.component.scss']
 })
 export class SubjectsComponent implements OnInit {
+  public subjectResponse!: SubjectResponse;
 
-  constructor() { }
+  constructor(private subjectService: SubjectService) {
+  }
 
   ngOnInit(): void {
+    this.getSubjects();
+  }
+
+  getSubjects(): void {
+    this.subjectService
+      .getSubjects()
+      .subscribe((subjectResponse: SubjectResponse) => this.subjectResponse = subjectResponse)
   }
 
 }

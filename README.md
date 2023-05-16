@@ -23,3 +23,9 @@ This library is `@angular/material`, it's one of the most famous in the angular 
 Note: I recommend to use material however it's not mandatory, if you prefer you can get ride of it.
 
 Good luck!
+
+# Features
+1. Spring Security
+2. Json web token
+3. Swagger
+4. AWS pour stocker les photos de profile

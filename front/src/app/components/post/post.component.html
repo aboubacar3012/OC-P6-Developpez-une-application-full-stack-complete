@@ -4,25 +4,21 @@
   </div>
   <div class="flex justify-start space-x-10">
     <p>
-      Date:
+      Date: {{post.createdAt | date}}
     </p>
     <p>
-      Auteur:
+      Auteur: {{post.authorId}}
     </p>
     <p>
-      Theme:
+      Theme: {{post.title}}
     </p>
   </div>
-  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology
-    acquisitions of 2021 so far, in reverse chronological order.
-    acquisitions of 2021 so far, in reverse chronological order.
-    acquisitions of 2021 so far, in reverse chronological order.
-    acquisitions of 2021 so far, in reverse chronological order.
-    acquisitions of 2021 so far, in reverse chronological order.
+  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+    {{post.content}}
   </p>
   <hr />
-  <div  class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-    Titre de l'article selectionne
+  <div  class="flex items-center mb-6 text-xl font-semibold text-gray-900 dark:text-white">
+    Commentaires
   </div>
   <div>
     <span>Username</span>
