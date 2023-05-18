@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-registration',
@@ -9,18 +10,28 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class RegistrationComponent implements OnInit {
 
   public registrationForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  private passwordPattern = /^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&()-_=+{};:,<.>]).$/
+  constructor(private formBuilder: FormBuilder, private userService: UserService) { }
 
   ngOnInit(): void {
     this.registrationForm = this.formBuilder.group({
       username: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      password: [null, Validators.required],
+      password: [null, [Validators.required, Validators.min(8)]] // Validators.pattern(this.passwordPattern)
     })
   }
 
   onSubmitForm(){
     console.log(this.registrationForm.value)
+    if(this.registrationForm.invalid) return;
+    console.log(this.registrationForm.value);
+    this.userService.addUser(this.registrationForm.value).subscribe(() => {
+      this.registrationForm = this.formBuilder.group({
+        username: [null, Validators.required],
+        email: [null, [Validators.required, Validators.email]],
+        password: [null, [Validators.required, Validators.min(8)]] // Validators.pattern(this.passwordPattern)
+      })
+    })
   }
 
 }

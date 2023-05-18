@@ -40,3 +40,10 @@ export interface Post {
     }
   }
 }
+
+export interface PostPayload{
+  title: string;
+  content: string;
+  authorId: number;
+  subjectId: number;
+}
