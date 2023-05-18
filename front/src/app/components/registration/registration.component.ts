@@ -22,6 +22,7 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmitForm(){
+    console.log(this.registrationForm.value)
     if(this.registrationForm.invalid) return;
     console.log(this.registrationForm.value);
     this.userService.addUser(this.registrationForm.value).subscribe(() => {
