@@ -22,3 +22,9 @@ export interface UserResponse {
     }
   }
 }
+
+export interface User {
+  username: string;
+  email: string;
+  password: string;
+}
