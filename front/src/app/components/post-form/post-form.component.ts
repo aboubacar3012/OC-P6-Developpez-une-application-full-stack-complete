@@ -36,8 +36,6 @@ export class PostFormComponent implements OnInit {
         subject: [null, Validators.required]
       })
     });
-
-
   }
 
   getSubjects(): void {

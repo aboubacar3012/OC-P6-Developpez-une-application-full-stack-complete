@@ -53,6 +53,17 @@ CREATE TABLE Feed
   FOREIGN KEY (post_id) REFERENCES Post (post_id)
 );
 
+DROP TABLE IF EXITS Comment;
+CREATE TABLE Comment
+(
+  comment_id INT PRIMARY KEY AUTO_INCREMENT,
+  author_id INT NOT NULL,
+  post_id INT NOT NULL,
+  content TEXT NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES User (user_id),
+  FOREIGN KEY (post_id) REFERENCES Post (post_id)
+)
+
 
 -- Table User :
 INSERT INTO User (username, email, password, profile)

@@ -30,8 +30,8 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api/users")
-public class UserController {
+@RequestMapping("/api/auth")
+public class AuthController {
     @Autowired
     private UserService userService;
 
@@ -51,36 +51,37 @@ public class UserController {
     private UserRepository userRepository;
 
 
-    @GetMapping()
-    public CollectionModel<EntityModel<User>> getUsers(){
-        List<EntityModel<User>> users =  this.userService.getUsers().stream()
-                .map(user -> assembler.toModel(user))
-                .collect(Collectors.toList());
-
-        return CollectionModel.of(users, linkTo(methodOn(UserController.class).getUsers()).withSelfRel());
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody @Valid LoginRequest request){
+        System.out.println("Hello");
+        try{
+            UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword(),new ArrayList<>());
+            Authentication authentication = authenticationManager.authenticate(token);
+            Optional<User> user = this.userRepository.findByEmail(request.getEmail());
+            if(user.isPresent()) {
+                String jwtToken = jwtTokenUtil.generateAccessToken(user.get());
+                LoginRegisterResponse response = new LoginRegisterResponse(jwtToken);
+                return ResponseEntity.ok().body(response);
+            }else{
+                return null;
+            }
+        }catch (BadCredentialsException exception){
+            exception.printStackTrace();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
-    @GetMapping("/{id}")
-    public EntityModel<User> getUserById(@PathVariable Long id) {
-        User user = this.userService.getUserById(id).orElseThrow(() -> new NotFoundException(id));
-        return assembler.toModel(user);
-    }
+    @PostMapping("/registration")
+    public ResponseEntity<?> register(@RequestBody @Valid User user){
+        try{
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            User savedUser = userService.addUser(user);
+            String token = jwtTokenUtil.generateAccessToken(savedUser);
+            LoginRegisterResponse response = new LoginRegisterResponse(token);
+            return ResponseEntity.ok().body(response);
 
-    @PostMapping()
-    public ResponseEntity<EntityModel<User>> addUser(@RequestBody User newUser){
-        EntityModel<User> entityModel = assembler.toModel(this.userService.addUser(newUser));
-        return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
-    }
-
-
-    @PutMapping("/{id}")
-    public ResponseEntity<EntityModel<User>> updateUser(@RequestBody User newUser, @PathVariable Long id){
-        EntityModel<User> entityModel = assembler.toModel(this.userService.replaceUserById(newUser,id));
-        return ResponseEntity.created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()).body(entityModel);
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long id){
-        this.userService.deleteUserById(id);
-        return ResponseEntity.noContent().build();
+        }catch (BadCredentialsException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 }

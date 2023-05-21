@@ -7,14 +7,18 @@ import {User, UserResponse} from "../interfaces/User";
   providedIn: 'root'
 })
 export class UserService {
-  private pathService = `/api/auth`;
+  private pathService = `/api/users`;
   constructor(private httpClient: HttpClient) {}
 
   public getUsers():Observable<UserResponse>{
     return this.httpClient.get<UserResponse>(this.pathService)
   }
-  public addUser(user: User): any {
-    console.log(user)
-    return this.httpClient.post<any>(`${this.pathService}/registration`,user);
+
+  public getUserById(id:number): Observable<User>{
+    return this.httpClient.get<User>(`${this.pathService}/${id}`);
+  }
+
+  public updateUserById(id:number, user: {username:string, email:string}): Observable<any>{
+    return this.httpClient.put<User>(`${this.pathService}/${id}`, user);
   }
 }

@@ -1,7 +1,5 @@
 package com.openclassrooms.mddapi.config;
 
-import com.openclassrooms.mddapi.model.User;
-import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -35,7 +33,7 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/public").permitAll()
 //                .antMatchers("/api/auth/login", "/api/auth/registration", "/v2/api-docs","/swagger-ui").permitAll()
 //                .anyRequest().authenticated();
-        .anyRequest().permitAll();
+                  .anyRequest().permitAll();
         http.exceptionHandling()
                 .authenticationEntryPoint(
                         (request, response, ex) -> {

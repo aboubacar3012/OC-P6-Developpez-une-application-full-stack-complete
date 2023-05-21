@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {UserService} from "../../services/user.service";
+import {User, UserResponse} from "../../interfaces/User";
 
 @Component({
   selector: 'app-user-profile',
@@ -9,17 +11,27 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 export class UserProfileComponent implements OnInit {
 
   public updateUserForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder) { }
+  public user!:any;
+
+  public username:string = "";
+  public email:string =  "";
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.updateUserForm = this.formBuilder.group({
-      username: [null, Validators.required],
-      password: [null, Validators.required]
-    })
+    this.getUserById(1);
   }
 
   onSubmitForm(){
-    console.log(this.updateUserForm.value);
+    this.userService.updateUserById(1,{username:this.username, email:this.email}).subscribe()
+  }
+
+  getUserById(id:number){
+    return this.userService.getUserById(id).subscribe((user:User) => {
+      this.user= user;
+      this.username = user.username;
+      this.email = user.email;
+    });
   }
 
 }
