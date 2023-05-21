@@ -1,7 +1,5 @@
 package com.openclassrooms.mddapi.config;
 
-import com.openclassrooms.mddapi.model.User;
-import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,10 +30,10 @@ public class ApplicationSecurity extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests()
-                .antMatchers("/public").permitAll()
-                .antMatchers("/api/auth/login", "/api/auth/registration", "/v2/api-docs","/swagger-ui").permitAll()
-                .anyRequest().authenticated();
-//        .anyRequest().permitAll();
+//                .antMatchers("/public").permitAll()
+//                .antMatchers("/api/auth/login", "/api/auth/registration", "/v2/api-docs","/swagger-ui").permitAll()
+//                .anyRequest().authenticated();
+                  .anyRequest().permitAll();
         http.exceptionHandling()
                 .authenticationEntryPoint(
                         (request, response, ex) -> {

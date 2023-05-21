@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {PostResponse} from "../../interfaces/Post";
 import {PostService} from "../../services/post.service";
 import {UserService} from "../../services/user.service";
-import {UserResponse} from "../../interfaces/UserResponse";
+import {UserResponse} from "../../interfaces/User";
 
 @Component({
   selector: 'app-posts',
