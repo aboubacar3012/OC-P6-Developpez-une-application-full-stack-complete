@@ -1,27 +1,19 @@
 package com.openclassrooms.mddapi.controller.user;
 
-import com.openclassrooms.mddapi.config.JwtTokenUtil;
 import com.openclassrooms.mddapi.exception.NotFoundException;
-import com.openclassrooms.mddapi.model.LoginRegisterResponse;
-import com.openclassrooms.mddapi.model.LoginRequest;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import com.openclassrooms.mddapi.service.UserService;
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,17 +30,6 @@ public class UserController {
     @Autowired
     private UserModelAssembler assembler;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    JwtTokenUtil jwtTokenUtil;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private UserRepository userRepository;
 
 
     @GetMapping()
@@ -64,6 +45,11 @@ public class UserController {
     public EntityModel<User> getUserById(@PathVariable Long id) {
         User user = this.userService.getUserById(id).orElseThrow(() -> new NotFoundException(id));
         return assembler.toModel(user);
+    }
+    @GetMapping("/get")
+    public Optional<User> getUserByEmail(@RequestParam String email) {
+        Optional<User> user = this.userService.findByEmail(email);
+        return Optional.of(user.get());
     }
 
     @PostMapping()
