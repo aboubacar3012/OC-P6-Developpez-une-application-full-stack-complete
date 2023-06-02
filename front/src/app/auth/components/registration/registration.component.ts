@@ -4,6 +4,7 @@ import {AuthService} from "../../../core/services/auth.service";
 import {LoginRegistrationResponse} from "../../../core/interfaces/LoginRegistrationResponse";
 import {Router} from "@angular/router";
 import {UserService} from "../../../core/services/user.service";
+import {passwordValidator} from "../../../shared/validators/password.validator";
 
 @Component({
   selector: 'app-registration',
@@ -13,7 +14,6 @@ import {UserService} from "../../../core/services/user.service";
 export class RegistrationComponent implements OnInit {
 
   public registrationForm!: FormGroup;
-  private passwordPattern = /^(?=.[0-9])(?=.[a-z])(?=.[A-Z])(?=.[!@#$%^&()-_=+{};:,<.>]).$/
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private userService: UserService) {
   }
@@ -23,7 +23,7 @@ export class RegistrationComponent implements OnInit {
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.min(8)]] // Validators.pattern(this.passwordPattern)
+      password: [null, [Validators.required, Validators.min(8), passwordValidator()]],
     })
   }
 
@@ -35,7 +35,7 @@ export class RegistrationComponent implements OnInit {
       this.registrationForm = this.formBuilder.group({
         username: [null, Validators.required],
         email: [null, [Validators.required, Validators.email]],
-        password: [null, [Validators.required, Validators.min(8)]] // Validators.pattern(this.passwordPattern)
+        password: [null, [Validators.required, Validators.min(8)]]
       })
       this.router.navigateByUrl("/posts").then(r => null)
     })

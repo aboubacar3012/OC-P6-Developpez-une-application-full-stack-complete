@@ -19,7 +19,7 @@
       <div class=" p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <a href="#">
           <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {{post.title}}
+            {{post.title | shorten : 30}}
           </h2>
         </a>
         <div class="flex justify-start space-x-10">
@@ -31,7 +31,7 @@
           </p>
         </div>
         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-          {{post.content}}
+          {{post.content | shorten}}
         </p>
 
         <a [routerLink]="[post.id]"
