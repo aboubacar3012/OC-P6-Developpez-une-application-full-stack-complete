@@ -5,6 +5,7 @@ import {PostFormComponent} from "./components/post-form/post-form.component";
 import {PostComponent} from "./components/post/post.component";
 import {PostsRoutingModule} from "./posts-routing.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {SharedModule} from "../shared/shared.module";
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     PostsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    SharedModule
   ],
   exports: [
     PostsComponent,

@@ -9,10 +9,12 @@ import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CoreModule} from "./core/core.module";
 import {AuthModule} from "./auth/auth.module";
+import {SharedModule} from "./shared/shared.module";
 
 const modules = [
   CoreModule,
-  AuthModule
+  AuthModule,
+  SharedModule
 ]
 
 @NgModule({
