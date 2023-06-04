@@ -14,6 +14,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service for authentication and registration
+ */
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -22,6 +25,12 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Authenticates a user based on the provided login credentials.
+     *
+     * @param request the login request containing user credentials
+     * @return the response containing the generated JWT token and user email
+     */
     public LoginRegisterResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -34,6 +43,12 @@ public class AuthService {
         return LoginRegisterResponse.builder().token(jwtToken).email(user.getEmail()).build();
     }
 
+    /**
+     * Registers a new user with the provided registration details.
+     *
+     * @param request the registration request containing user details
+     * @return the response containing the generated JWT token and user email
+     */
     public LoginRegisterResponse register(RegistrationRequest request) {
         var user = User.builder()
                 .firstName(request.getFirstName())
@@ -47,6 +62,9 @@ public class AuthService {
         return LoginRegisterResponse.builder().token(jwtToken).email(user.getEmail()).build();
     }
 
+    /**
+     * Clears the security context, effectively logging out the current user.
+     */
     public void logout() {
         SecurityContextHolder.clearContext();
     }

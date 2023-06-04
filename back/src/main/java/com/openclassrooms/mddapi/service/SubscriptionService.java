@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Service class for managing subscriptions.
+ */
 @Service
 public class SubscriptionService {
     private final SubscriptionRepository subscriptionRepository;
@@ -15,27 +19,48 @@ public class SubscriptionService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public List<Subscription> subscriptions(){
+    /**
+     * Retrieves all subscriptions.
+     *
+     * @return the list of all subscriptions
+     */
+    public List<Subscription> subscriptions() {
         return this.subscriptionRepository.findAll();
     }
 
-    public void subscribe(Long userId, Long subjectId){
+    /**
+     * Subscribes a user to a subject.
+     *
+     * @param userId    the ID of the user
+     * @param subjectId the ID of the subject
+     */
+    public void subscribe(Long userId, Long subjectId) {
         Subscription subscription = new Subscription();
         subscription.setUserId(userId);
         subscription.setSubjectId(subjectId);
         this.subscriptionRepository.save(subscription);
     }
 
-    public void unSubscribe(Long userId, Long subjectId){
+    /**
+     * Unsubscribes a user from a subject.
+     *
+     * @param userId    the ID of the user
+     * @param subjectId the ID of the subject
+     */
+    public void unSubscribe(Long userId, Long subjectId) {
         Subscription subscription = this.subscriptionRepository.findByUserIdAndSubjectId(userId, subjectId);
         this.subscriptionRepository.deleteById(subscription.getId());
     }
 
-    public Boolean alreadySubscribed(Long userId, Long subjectId){
+    /**
+     * Checks if a user is already subscribed to a subject.
+     *
+     * @param userId    the ID of the user
+     * @param subjectId the ID of the subject
+     * @return true if the user is already subscribed, false otherwise
+     */
+    public Boolean alreadySubscribed(Long userId, Long subjectId) {
         Optional<Subscription> subscription = Optional.ofNullable(this.subscriptionRepository.findByUserIdAndSubjectId(userId, subjectId));
         return subscription.isPresent();
     }
-
-
-
 }
